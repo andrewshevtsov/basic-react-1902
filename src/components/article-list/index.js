@@ -16,7 +16,7 @@ class ArticleList extends Component {
     render() {
         const { articles, openItemId, toggleItem } = this.props
         const articleElements = articles.map(article =>
-            <li className='article-list__li' key = {article.id}>
+            <li className='article-list__li article-list__li--enzyme' key = {article.id}>
                 <Article
                     article = {article}
                     onButtonClick = {toggleItem}
@@ -25,13 +25,11 @@ class ArticleList extends Component {
             </li>
         )
         return (
-            <ul ref = {this.setContainerRef}>
+            <ul>
                 {articleElements}
             </ul>
         )
     }
-
-    setContainerRef = containerRef => console.log(containerRef)
 }
 
 export default accordion(ArticleList)
