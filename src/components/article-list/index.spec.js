@@ -18,5 +18,11 @@ describe('Article List', () => {
     const wrapper = mount(<ArticleList articles = {articles} />)
     wrapper.find('.test__article--button').at(0).simulate('click')
     expect(wrapper.find('.test__article--body').length).toEqual(1)
-  });
+  })
+
+  it('should fetch data on mount', () => {
+    let triggered
+    const wrapper = mount(<ArticleList articles={[]} fetchData = {() => triggered = true} />)
+    expect(triggered).toEqual(true)
+  })
 })
