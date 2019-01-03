@@ -1,15 +1,24 @@
-import React, {PureComponent} from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import CommentList from './comment-list'
 
 class Article extends PureComponent {
+    state = {
+        error: null
+    }
+    componentDidCatch(error) {
+        console.log('---', error)
+        this.setState({ error })
+    }
+
     render() {
+        if (this.state.error) return <h2>{this.state.error.message}</h2>
         const { isOpen, article, onButtonClick } = this.props
-        console.log('---', 1)
         return (
             <div>
                 <h2>
                     {article.title}
-                    <button onClick={() => onButtonClick(article.id)}>{isOpen ? 'close' : 'open'}</button>
+                    <button onClick={ () => onButtonClick(article.id) }>{isOpen ? 'close' : 'open'}</button>
                 </h2>
                 {isOpen && getBody(article)}
             </div>
@@ -21,10 +30,10 @@ function getBody(article) {
     return (
         <section>
             {article.text}
+            <CommentList comments = {article.comments || []} />
         </section>
     )
 }
-
 
 Article.propTypes = {
     isOpen: PropTypes.bool,

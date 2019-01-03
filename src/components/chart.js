@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Chart extends Component {
     static propTypes = {
 
-    };
+    }
 
     componentDidMount() {
         //perform charting with d3

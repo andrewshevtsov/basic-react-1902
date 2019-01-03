@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Article from './article'
-import accordion from '../decorators/accordion'
+import Article from '../article'
+import accordion from '../../decorators/accordion'
+import './style.css'
 
 class ArticleList extends Component {
     static propTypes = {
@@ -10,12 +11,12 @@ class ArticleList extends Component {
         //from accordion decorator
         openItemId: PropTypes.string,
         toggleItem: PropTypes.func
-    };
+    }
 
     render() {
         const { articles, openItemId, toggleItem } = this.props
         const articleElements = articles.map(article =>
-            <li key = {article.id}>
+            <li className='article-list__li' key = {article.id}>
                 <Article
                     article = {article}
                     onButtonClick = {toggleItem}
