@@ -20,7 +20,7 @@ class App extends Component {
             <div className='container'>
                 <UserForm />
                 <Filters articles = {articles} />
-                <ArticleList articles = {articles} ref = {this.setListRef}/>
+                <ArticleList articles = {articles} ref = {this.setListRef} defaultOpenId = {articles[0].id}/>
                 <Chart articles = {articles}/>
             </div>
         )
