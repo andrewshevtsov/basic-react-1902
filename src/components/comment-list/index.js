@@ -1,12 +1,18 @@
 import React, { Component } from "react"
 import PropTypes from 'prop-types'
+import CSSTransition from 'react-addons-css-transition-group'
 import Comment from '../comment'
 import toggleOpen from '../../decorators/toggleOpen'
 import './style.css'
 
 class CommentList extends Component {
+  static defaultProps = {
+    comments: []
+  }
+
   static propTypes = {
     comments: PropTypes.array.isRequired,
+
     //from toggleOpen decorator
     isOpen: PropTypes.bool,
     toggleOpen: PropTypes.func
@@ -15,11 +21,21 @@ class CommentList extends Component {
   render() {
     const { isOpen, toggleOpen } = this.props
     const text = isOpen ? 'hide comments' : 'show comments'
-
     return (
       <div>
-        <button onClick={toggleOpen}>{ text }</button>
-        {this.getBody()}
+        <button
+          className = 'test__comment-list--button'
+          onClick={toggleOpen}
+        >
+          { text }
+        </button>
+        <CSSTransition
+          transitionName = "comments"
+          transitionEnterTimeout = {500}
+          transitionLeaveTimeout = {500}
+        >
+          {this.getBody()}
+        </CSSTransition>
       </div>
     )
   }
@@ -28,16 +44,28 @@ class CommentList extends Component {
     const { comments, isOpen } = this.props
     if (!isOpen) return null
 
-    const body = comments.length ? (
-      <ul>
-        {comments.map(comment => <li key={comment.id}><Comment comment = {comment} /></li>)}
-      </ul>
-    ) : <h3>No comment yet</h3>
-
     return (
-      <div>
-        {body}
+      <div className = 'test__comment-list--body'>
+        {
+          comments.length
+            ? this.getComments()
+            : <h3 className = 'test__comment-list--empty'>No comment yet</h3>
+        }
       </div>
+    )
+  }
+
+  getComments() {
+    return (
+      <ul>
+        {
+          this.props.comments.map(comment =>
+            <li className = 'test__comment-list--item' key={comment.id}>
+              <Comment comment = {comment}/>
+            </li>
+          )
+        }
+      </ul>
     )
   }
 }

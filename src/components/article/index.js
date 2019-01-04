@@ -33,7 +33,7 @@ class Article extends PureComponent {
                     transitionEnterTimeout = {500}
                     transitionLeaveTimeout = {300}
                     transitionAppearTimeout = {800}
-                    component = "div"
+                    component = {Fragment}
                     >
                     {isOpen && getBody(article)}
                 </CSSTransition>
@@ -46,7 +46,7 @@ function getBody(article) {
     return (
       <section className='test__article--body'>
           {article.text}
-          <CommentList comments = {article.comments || []} />
+          <CommentList comments = {article.comments} />
       </section>
     )
 }
